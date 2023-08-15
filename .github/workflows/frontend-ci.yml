@@ -22,7 +22,7 @@ jobs:
             node-version: latest
 
         - name: Install dependencies
-          run: npm install
+          run: cd frontend && npm install
   
         - name: Print a message for main branch
           if: github.ref == 'refs/heads/main'
@@ -33,7 +33,11 @@ jobs:
           run: echo "This is not the main branch."
   
         - name: Run tests
-          run: npm test
+          run: cd frontend npm test
+
+        - name: Run the linter.
+        - run: cd backend && npm run lint
+        - run: cd backend && npm init @eslint/config
   
         - name: Debug message
           if: env.DEBUG == 'true'
@@ -64,6 +68,10 @@ jobs:
         - name: Run tests
           run: npm test
   
+        - name: Run the linter.
+        - run: cd backend && npm run lint
+        - run: cd backend && npm init @eslint/config
+
         - name: Debug message
           if: env.DEBUG == 'true'
           run: echo "Debugging is enabled."
