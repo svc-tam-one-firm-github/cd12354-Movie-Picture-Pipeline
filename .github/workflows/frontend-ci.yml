@@ -22,7 +22,7 @@ jobs:
             node-version: latest
 
         - name: Install dependencies
-          run: cd frontend && npm ci
+          run: cd starter\frontend && npm ci
   
         - name: Print a message for main branch
           if: github.ref == 'refs/heads/main'
@@ -33,10 +33,10 @@ jobs:
           run: echo "This is not the main branch."
   
         - name: Run tests
-          run: cd frontend && npm test
+          run: cd starter\frontend && npm test
 
         - name: Run the linter.
-          run: cd front && npm run lint
+          run: cd starter\frontend && npm run lint
   
         - name: Debug message
           if: env.DEBUG == 'true'
@@ -54,7 +54,7 @@ jobs:
             node-version: latest
 
         - name: Install dependencies
-          run: cd frontend && npm install
+          run: cd starter\frontend && npm install
   
         - name: Print a message for main branch
           if: github.ref == 'refs/heads/main'
@@ -65,10 +65,10 @@ jobs:
           run: echo "This is not the main branch."
   
         - name: Run tests
-          run: cd frontend && npm test
+          run: cd starter\frontend && npm test
   
         - name: Run the linter.
-          run: cd frontend && npm run lint
+          run: cd starter\frontend && npm run lint
 
         - name: Debug message
           if: env.DEBUG == 'true'
