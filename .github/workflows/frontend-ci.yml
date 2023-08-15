@@ -21,6 +21,7 @@ jobs:
           with:
             node-version: latest
             cache: 'npm'
+            cache-dependency-path: starter/package-lock.json
 
         - name: Install dependencies
           run: cd starter/frontend && npm ci
@@ -40,6 +41,7 @@ jobs:
           with:
             node-version: latest
             cache: 'npm'
+            cache-dependency-path: starter/package-lock.json
 
         - name: Install dependencies
           run: cd starter/frontend && npm install
@@ -60,6 +62,7 @@ jobs:
           with:
             node-version: latest
             cache: 'npm'
+            cache-dependency-path: starter/package-lock.json
 
         - name: Install dependencies
           run: cd starter/frontend && npm install
