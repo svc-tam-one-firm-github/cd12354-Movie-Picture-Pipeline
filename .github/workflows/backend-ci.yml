@@ -1,0 +1,61 @@
+name: frontend-ci-workflow
+
+# Ensure the workflow
+on:
+    workflow_dispatch:
+    pull_request:
+        branches:
+        - main
+
+
+# Jobs defined in the workflow
+jobs:
+    linting:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+  
+        - name: Set up Node.js 
+          uses: actions/setup-node@v3
+          with:
+            node-version: latest
+            #cache: 'npm'
+            #cache-dependency-path: starter/frontend/package-lock.json
+
+        - name: Install dependencies
+          run: cd starter/frontend && npm ci
+  
+        - name: Run the linter.
+          run: cd starter/frontend && npm run lint
+  
+  
+    testing:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-python@v4
+          with:
+            python-version: '3.10' 
+        - run: python starter/backendend/test_app.py
+
+          
+    post-build-actions:
+      needs: [linting, testing]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+  
+        - name: Set up Node.js 
+          uses: actions/setup-node@v3
+          with:
+            node-version: 16
+            cache: 'npm'
+            cache-dependency-path: starter/frontend/package-lock.json
+
+        - name: Install dependencies
+          run: cd starter/frontend && npm install
+  
+        - name: Run tests
+          run: cd starter/frontend && npm test
