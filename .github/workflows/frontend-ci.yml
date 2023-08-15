@@ -22,7 +22,7 @@ jobs:
             node-version: latest
 
         - name: Install dependencies
-          run: npm test
+          run: npm install
   
         - name: Print a message for main branch
           if: github.ref == 'refs/heads/main'
@@ -51,7 +51,7 @@ jobs:
             node-version: latest
 
         - name: Install dependencies
-          run: npm test
+          run: npm install
   
         - name: Print a message for main branch
           if: github.ref == 'refs/heads/main'
