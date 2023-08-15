@@ -36,7 +36,7 @@ jobs:
           run: cd frontend && npm test
 
         - name: Run the linter.
-        - run: cd front && npm run lint
+          run: cd front && npm run lint
   
         - name: Debug message
           if: env.DEBUG == 'true'
@@ -68,7 +68,7 @@ jobs:
           run: cd frontend && npm test
   
         - name: Run the linter.
-        - run: cd frontend && npm run lint
+          run: cd frontend && npm run lint
 
         - name: Debug message
           if: env.DEBUG == 'true'
