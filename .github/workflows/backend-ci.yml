@@ -47,7 +47,10 @@ jobs:
             pipenv install --dev
 
         - name: Run the Test check
-          run: cd starter/backend && pipenv run test
+          run: | 
+            cd starter/backend
+            pipenv install pytest
+            pipenv run test
           
           
     build-actions:
