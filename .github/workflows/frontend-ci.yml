@@ -49,25 +49,25 @@ jobs:
         - name: Run tests
           run: cd starter/frontend && npm test
 
-          
-    build-actions:
-      needs: [linting, testing]
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-  
-        - name: Set up Node.js 
-          uses: actions/setup-node@v3
-          with:
-            node-version: 16
-            cache: 'npm'
-            cache-dependency-path: starter/frontend/package-lock.json
 
-        - name: Install dependencies
-          run: cd starter/frontend && npm ci
+    #build-actions:
+      #needs: [linting, testing]
+      #runs-on: ubuntu-latest
+     # steps:
+       # - name: Checkout code
+       #   uses: actions/checkout@v3
   
-        - name: Build and run frontend container
-        working-directory: starter/frontend
-        run: |
-          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
+       # - name: Set up Node.js 
+        #  uses: actions/setup-node@v3
+        #  with:
+        #    node-version: 16
+        #    cache: 'npm'
+        #    cache-dependency-path: starter/frontend/package-lock.json
+
+        #- name: Install dependencies
+        #  run: cd starter/frontend && npm ci
+  
+        #- name: Build and run frontend container
+       # working-directory: starter/frontend
+       # run: |
+       #   docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
