@@ -49,13 +49,11 @@ jobs:
         - name: Run the Test check
           run: cd starter/backend && pipenv run test
           
-
           
     build-actions:
       needs: [linting, testing]
       runs-on: ubuntu-latest
       steps:
-        - name: Checkout code
         - uses: actions/checkout@v3
 
         - name: Build the Docker image
