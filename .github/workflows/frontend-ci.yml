@@ -10,7 +10,7 @@ on:
 
 # Jobs defined in the workflow
 jobs:
-    build-and-test-1:
+    lint:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
@@ -30,7 +30,7 @@ jobs:
           run: cd starter/frontend && npm run lint
   
   
-    build-and-test-2:
+    test:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
@@ -44,14 +44,14 @@ jobs:
             cache-dependency-path: starter/frontend/package-lock.json
 
         - name: Install dependencies
-          run: cd starter/frontend && npm install
+          run: cd starter/frontend && npm ci
   
         - name: Run tests
           run: cd starter/frontend && npm test
 
           
-    post-build-actions:
-      needs: [build-and-test-1, build-and-test-2]
+    build-actions:
+      needs: [lint, test]
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
@@ -65,7 +65,9 @@ jobs:
             cache-dependency-path: starter/frontend/package-lock.json
 
         - name: Install dependencies
-          run: cd starter/frontend && npm install
+          run: cd starter/frontend && npm ci
   
-        - name: Run tests
-          run: cd starter/frontend && npm test
+        - name: Build and run frontend container
+        working-directory: starter/frontend
+        run: |
+          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
