@@ -1,4 +1,4 @@
-name: backend-ci-workflow
+name: Backend Continuous Integration
 
 # Ensure the workflow
 on:
