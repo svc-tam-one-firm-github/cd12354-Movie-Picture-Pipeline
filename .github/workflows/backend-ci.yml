@@ -1,4 +1,4 @@
-name: frontend-ci-workflow
+name: backend-ci-workflow
 
 # Ensure the workflow
 on:
@@ -16,19 +16,21 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v3
   
-        - name: Set up Node.js 
-          uses: actions/setup-node@v3
+        - name: Set up Python 3
+          uses: actions/setup-python@v4
           with:
-            node-version: latest
-            #cache: 'npm'
-            #cache-dependency-path: starter/frontend/package-lock.json
+            python-version: "3.10"
+            
 
         - name: Install dependencies
-          run: cd starter/frontend && npm ci
+          run: |
+            python -m pip install --upgrade pip
+            pip install pipenv
+            pip install flake8
   
-        - name: Run the linter.
-          run: cd starter/frontend && npm run lint
-  
+        - name: Run the lint check
+          run: cd starter/backend && pipenv run lint
+            
   
     testing:
       runs-on: ubuntu-latest
@@ -37,14 +39,27 @@ jobs:
         - uses: actions/setup-python@v4
           with:
             python-version: '3.10' 
-        - run: python starter/backend/test_app.py
+
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install pipenv
+            pip install --dev
+
+        - name: Run the Test check
+          run: cd starter/backend && pipenv run test
+          
 
           
-    post-build-actions:
+    build-actions:
       needs: [linting, testing]
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout code
         - uses: actions/checkout@v3
+
         - name: Build the Docker image
-          run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          run: | 
+            cd starter/backend
+            docker build --tag mp-backend:latest .
     
