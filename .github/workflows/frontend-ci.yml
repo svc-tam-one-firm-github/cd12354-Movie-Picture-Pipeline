@@ -10,7 +10,7 @@ on:
 
 # Jobs defined in the workflow
 jobs:
-    lint:
+    linting:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
@@ -30,7 +30,7 @@ jobs:
           run: cd starter/frontend && npm run lint
   
   
-    test:
+    testing:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
@@ -51,8 +51,9 @@ jobs:
 
           
     build-actions:
-      needs: [lint, test]
+      needs: [linting, testing]
       runs-on: ubuntu-latest
+      
       steps:
         - name: Checkout code
           uses: actions/checkout@v3
